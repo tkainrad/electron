@@ -88,17 +88,9 @@
 
 namespace electron {
 
-namespace {
+content::RenderFrame* GetRenderFrame(v8::Local<v8::Object> value);
 
-content::RenderFrame* GetRenderFrame(v8::Local<v8::Object> value) {
-  v8::Local<v8::Context> context = value->CreationContext();
-  if (context.IsEmpty())
-    return nullptr;
-  blink::WebLocalFrame* frame = blink::WebLocalFrame::FrameForContext(context);
-  if (!frame)
-    return nullptr;
-  return content::RenderFrame::FromWebFrame(frame);
-}
+namespace {
 
 void SetIsWebView(v8::Isolate* isolate, v8::Local<v8::Object> object) {
   gin_helper::Dictionary dict(isolate, object);
